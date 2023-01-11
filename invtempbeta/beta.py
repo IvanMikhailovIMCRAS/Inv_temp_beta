@@ -29,6 +29,8 @@ def zero_of_function(fun, x0=0.5, precision=10):
 class BetaCalc:
     """ Calculation of inverse temperature of adsorption"""
     def __init__(self, n, x = 1./6.):
+        if n <= 0:
+            raise ValueError("n must be > 0")
         self.n = n
         self.x = x
         self.P  = np.eye(self.n, self.n, k=1, dtype='float') 
@@ -51,4 +53,8 @@ class BetaCalc:
 
 if __name__ == '__main__':
 
-    print(np.isnan(newton_raphson(lambda x: np.sqrt(x), -1., h=1e-9)))
+    B = BetaCalc(n=4, x=0.5)
+    x = B.beta([-1.,0.,0.,0.])
+    print(x)
+
+
